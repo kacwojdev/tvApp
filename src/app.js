@@ -41,6 +41,8 @@ class TvApp {
     }
 
     renderCards = shows => {
+        this.viewElems.showsWrapper.innerHTML = '';
+
         for (const {show} of shows) {
             this.createShowCard(show);
         }
@@ -48,8 +50,14 @@ class TvApp {
 
     createShowCard = show => {
        const divCard = createDOMElem('div', 'Show-Card');
-       const img = createDOMElem('img', '', '' ,show.image.medium);
        const h2 = createDOMElem('h2', '', show.name);
+       let img;
+
+       if (show.image) {
+        img = createDOMElem('img', '', '', show.image.medium);
+       } else {
+        img = createDOMElem('img', '', '', 'https://via.placeholder.com/210x295');
+        }
 
        divCard.appendChild(img);
        divCard.appendChild(h2);
