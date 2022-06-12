@@ -1,4 +1,4 @@
-import { mapListToDOMElements } from './domInteractions.js';
+import { mapListToDOMElements, createDOMElem } from './domInteractions.js';
 import { getShowById, getShowsByKey } from './requests.js';
 
 class TvApp {
@@ -12,6 +12,7 @@ class TvApp {
     initilizeApp = () => {
         this.connectDOMElements();
         this.setupListeners();
+        this.fetchAndDisplayShows();
     }
 
     connectDOMElements = () => {
@@ -32,7 +33,28 @@ class TvApp {
 
     setCurrentNameFilter = event => {
         this.selectedName = event.target.dataset.showName;
-        console.log(event.target.dataset.showName);
+        this.fetchAndDisplayShows();
+    }
+
+    fetchAndDisplayShows() {
+        console.log(getShowsByKey(this.selectedName).then(shows => this.renderCards(shows)));
+    }
+
+    renderCards = shows => {
+        for (const {show} of shows) {
+            this.createShowCard(show);
+        }
+    }
+
+    createShowCard = show => {
+       const divCard = createDOMElem('div', 'Show-Card');
+       const img = createDOMElem('img', '', '' ,show.image.medium);
+       const h2 = createDOMElem('h2', '', show.name);
+
+       divCard.appendChild(img);
+       divCard.appendChild(h2);
+
+       this.viewElems.showsWrapper.appendChild(divCard);
     }
 }
 

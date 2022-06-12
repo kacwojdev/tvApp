@@ -6,9 +6,7 @@ body {
 }
 
 body {
-    background-image: url('../src/hero_bgjpg.jpg');
-    background-position: center;
-    background-size: cover;
+    position: relative;
     font-family: 'Rubik', sans-serif;
     font-family: 'Source Sans Pro', sans-serif;
 }
@@ -16,6 +14,41 @@ body {
 button {
     cursor: pointer;
 }
+
+/* 
+
+    Container
+
+*/
+
+.Container {
+    max-width: 1180px;
+    height: 100%;
+    margin:auto;
+}
+
+/*
+
+    Hero background image 
+
+*/
+.Hero_Background {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 25vh;
+    width: 100%;
+    z-index: -1;
+    background-image: url('../src/hero_bgjpg.jpg');
+    background-size: cover;
+    background-repeat: no-repeat;
+}
+
+/*
+
+    Nav bar styles
+    
+*/
 
 .Search-Bar {
     width: 100%;
@@ -48,12 +81,6 @@ button {
     padding: 10px 20px;
 }
 
-.Container {
-    max-width: 1180px;
-    height: 100%;
-    margin:auto;
-}
-
 .Search-Bar-Keywords {
     display: flex;
     flex-direction: column;
@@ -78,3 +105,47 @@ button {
     background: rgb(102, 102, 102);
 }
 
+/* 
+
+    Shows List Component
+
+*/
+
+
+.Shows-Wrapper {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-evenly;
+}
+
+.Show-Card {
+    flex: 0 0 auto;
+    margin: 15px;
+    background: white;
+    text-align: center;
+    box-shadow: 0 0 0px rgba(0, 0, 0, 0.25);
+    cursor: pointer;
+    transition: box-shadow .2s;
+}
+
+.Show-Card:hover {
+    box-shadow: 0 0 50px rgba(0, 0, 0, 0.25);
+}
+
+/* 
+
+    Show Preview Item
+
+*/
+
+.Show-Preview {
+    display: flex;
+    flex-direction: row;
+    margin: 100px;
+    background-color: rgb(92, 92, 92);
+    color: white;
+}
+
+.Show-Preview-Details {
+    padding: 25px;
+}
