@@ -53,10 +53,10 @@ class TvApp {
        const h2 = createDOMElem('h2', '', show.name);
        let img;
 
-       if (show.image) {
-        img = createDOMElem('img', '', '', show.image.medium);
-       } else {
-        img = createDOMElem('img', '', '', 'https://via.placeholder.com/210x295');
+        if (show.image) {
+            img = createDOMElem('img', '', '', show.image.medium);
+        } else {
+            img = createDOMElem('img', '', '', 'https://via.placeholder.com/210x295');
         }
 
        divCard.appendChild(img);
