@@ -44,14 +44,14 @@ class TvApp {
         this.viewElems.showsWrapper.innerHTML = '';
 
         for (const {show} of shows) {
-            this.createShowCard(show);
+            this.viewElems.showsWrapper.appendChild(this.createShowCard(show));
         }
     }
 
     createShowCard = show => {
-       const divCard = createDOMElem('div', 'Show-Card');
-       const h2 = createDOMElem('h2', '', show.name);
-       let img;
+        const divCard = createDOMElem('div', 'Show-Card');
+        const h2 = createDOMElem('h2', '', show.name);
+        let img;
 
         if (show.image) {
             img = createDOMElem('img', '', '', show.image.medium);
@@ -59,10 +59,61 @@ class TvApp {
             img = createDOMElem('img', '', '', 'https://via.placeholder.com/210x295');
         }
 
-       divCard.appendChild(img);
-       divCard.appendChild(h2);
+         divCard.appendChild(img);
+         divCard.appendChild(h2);
 
-       this.viewElems.showsWrapper.appendChild(divCard);
+        divCard.dataset.showId = show.id;
+        divCard.addEventListener('click', this.renderModal);
+    
+
+        return divCard;
+    }
+
+    renderModal = e => {
+        const showId = e.currentTarget.dataset.showId;
+        getShowById(showId).then(show => {
+            this.viewElems.showPreviewModal.style.display = 'block';
+            this.viewElems.mainContent.classList += 'Blurred-Main';
+            this.viewElems.showPreviewModal.appendChild(this.createShowModal(show));
+        })
+    }
+
+    closeModal = e => {
+        this.viewElems.showPreviewModal.style.display = 'none';
+        this.viewElems.showPreviewModal.innerHTML = '';
+    }
+
+   createShowModal = show => {
+
+        let _displayRating = rating => {
+            let stars = '';
+            for (let i = 0; i < Math.round(rating); i++) {
+                stars.append('⭐');
+            }
+            return stars;
+        }
+
+        const showModalContainer = createDOMElem('div', 'Show-Preview-Container');
+        const img = createDOMElem('img', '', '', show.image.medium);
+        const showPreviewDetails = createDOMElem('div', 'Show-Preview-Details');
+        const h2 = createDOMElem('h2', '', show.name);
+        const p = createDOMElem('p', '', show.summary);
+        const ratings = createDOMElem('div', '', _displayRating(show.rating));
+        const closeBtn = createDOMElem('button', 'Show-Preview-Close-Btn', 'CLOSE', '');
+
+       
+
+        showPreviewDetails.appendChild(h2);
+        showPreviewDetails.appendChild(p);
+        showPreviewDetails.appendChild(ratings);
+
+        showModalContainer.appendChild(img);
+        showModalContainer.appendChild(showPreviewDetails);
+        showModalContainer.appendChild(closeBtn);
+
+        closeBtn.addEventListener('click', this.closeModal);
+
+        return showModalContainer;
     }
 }
 

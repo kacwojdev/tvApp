@@ -12,28 +12,34 @@
     <link rel="stylesheet" href="css/main.css">
 </head>
 <body>
-    <div class="Search-Bar" >
-        <div class="Container">
-            <div class="Search-Bar-Content">
-                <h1>TVApp</h1>
-                <input class="Search-Bar-Input" type="text" placeholder="Search for movies, series etc..">
-                <div class="Search-Bar-Keywords">
-                    <h3>Most popular keywords</h3>
-                    <div class="Search-Bar-Keywords-Box">
-                        <button class="Keywords-Item" data-show-name="harry">Harry</button>
-                        <button class="Keywords-Item" data-show-name="queen">Queen</button>
-                        <button class="Keywords-Item" data-show-name="dog">Dog</button>
-                        <button class="Keywords-Item" data-show-name="fun">Fun</button>
+    <main class="Main-Content" id="mainContent">
+        <div class="Search-Bar" >
+            <div class="Container">
+                <div class="Search-Bar-Content">
+                    <h1>TVApp</h1>
+                    <input class="Search-Bar-Input" type="text" placeholder="Search for movies, series etc..">
+                    <div class="Search-Bar-Keywords">
+                        <h3>Most popular keywords</h3>
+                        <div class="Search-Bar-Keywords-Box">
+                            <button class="Keywords-Item" data-show-name="harry">Harry</button>
+                            <button class="Keywords-Item" data-show-name="queen">Queen</button>
+                            <button class="Keywords-Item" data-show-name="dog">Dog</button>
+                            <button class="Keywords-Item" data-show-name="fun">Fun</button>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
-    </div>
 
-    <div class="Hero_Background"></div>
-    
-    <div class="Container">
-        <!-- <div class="Show-Preview" id="showPreview">
+        <div class="Hero_Background"></div>
+        
+        <div class="Container">
+            <div class="Shows-Wrapper" id="showsWrapper"></div>
+        </div>
+    </main>
+
+    <div class="Show-Preview" id="showPreviewModal">
+        <!-- <div class="Show-Preview-Container">
             <img src="https://static.tvmaze.com/uploads/images/medium_portrait/54/135883.jpg" alt="movie title">
             <div class="Show-Preview-Details">
                 <h2>Movie Title</h2>
@@ -42,8 +48,8 @@
                     Ocena: ⭐⭐⭐
                 </div>
             </div>
+            <button class="Show-Preview-Close-Btn">CLOSE</button>
         </div> -->
-        <div class="Shows-Wrapper" id="showsWrapper"></div>
     </div>
 
     <script type="module" src="src/app.js"></script>
