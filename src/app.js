@@ -73,13 +73,14 @@ class TvApp {
         const showId = e.currentTarget.dataset.showId;
         getShowById(showId).then(show => {
             this.viewElems.showPreviewModal.style.display = 'block';
-            this.viewElems.mainContent.classList += 'Blurred-Main';
+            this.viewElems.mainContent.classList.add('Blurred-Main');
             this.viewElems.showPreviewModal.appendChild(this.createShowModal(show));
         })
     }
 
     closeModal = e => {
         this.viewElems.showPreviewModal.style.display = 'none';
+        this.viewElems.mainContent.classList.remove('Blurred-Main');
         this.viewElems.showPreviewModal.innerHTML = '';
     }
 
