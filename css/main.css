@@ -8,11 +8,14 @@ body {
 body {
     position: relative;
     font-family: 'Rubik', sans-serif;
-    font-family: 'Source Sans Pro', sans-serif;
 }
 
 button {
     cursor: pointer;
+}
+
+button, input {
+    font-family: 'Rubik', sans-serif;
 }
 
 /* 
@@ -81,10 +84,15 @@ button {
     margin-right: auto;
 }
 
+form {
+    display: flex;
+    margin: auto;
+}
+
 .Search-Bar-Input {
     min-width: 300px;
-    margin-right: 50px;
     padding: 10px 20px;
+    font-size: 1em;
 }
 
 .Search-Bar-Keywords {
@@ -165,6 +173,12 @@ button {
     top: 0;
     right: 0;
 }
+
+/* 
+
+    Searched Label
+
+*/
 
 .Shows-Searched-Label {
     color: white;

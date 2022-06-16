@@ -29,6 +29,11 @@ class TvApp {
         Object.keys(this.showNameButtons).forEach(showName => {
             this.showNameButtons[showName].addEventListener('click', this.setCurrentNameFilter);
         });
+
+        this.viewElems.showSearchForm.addEventListener('submit', event => {
+            event.preventDefault();
+            console.log('Form was submitted!');
+        })
     }
 
     setCurrentNameFilter = event => {
