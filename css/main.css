@@ -160,12 +160,18 @@ button {
     width: 100%;
 }
 
-.Show-Preview-Details {
-
-}
-
 .Show-Preview-Close-Btn {
     position: absolute;
     top: 0;
     right: 0;
+}
+
+.Shows-Searched-Label {
+    color: white;
+}
+
+.Shows-Searched-Label h3 {
+    margin: 0;
+    font-size: 3em;
+    text-transform: uppercase;   
 }

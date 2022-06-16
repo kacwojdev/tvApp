@@ -43,6 +43,8 @@ class TvApp {
     renderCards = shows => {
         this.viewElems.showsWrapper.innerHTML = '';
 
+        this.viewElems.searchedKeywordLabel.innerText = `${this.selectedName} (${shows.length})`;
+
         for (const {show} of shows) {
             this.viewElems.showsWrapper.appendChild(this.createShowCard(show));
         }
