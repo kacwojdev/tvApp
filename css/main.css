@@ -90,9 +90,22 @@ form {
 }
 
 .Search-Bar-Input {
+    border: none;
     min-width: 300px;
     padding: 10px 20px;
     font-size: 1em;
+}
+
+.Search-Bar-Form-Btn {
+    background: #5576bf;
+    color: white;
+    border: none;
+    padding: 0 25px;
+    transition: background .5s;
+}
+
+.Search-Bar-Form-Btn:hover {
+    background: #31446d;
 }
 
 .Search-Bar-Keywords {
@@ -135,6 +148,7 @@ form {
 .Show-Card {
     flex: 0 0 auto;
     margin: 15px;
+    width: min-content;
     background: white;
     text-align: center;
     box-shadow: 0 0 0px rgba(0, 0, 0, 0.25);
@@ -170,8 +184,19 @@ form {
 
 .Show-Preview-Close-Btn {
     position: absolute;
+    border: none;
     top: 0;
     right: 0;
+    background: none;
+    transition: transform .2s;
+}
+
+.Show-Preview-Close-Btn:hover {
+    transform: scale(0.90);
+}
+
+.Show-Preview-Close-Btn:active {
+    transform: scale(0.8);
 }
 
 /* 

@@ -42,7 +42,7 @@ class TvApp {
     }
 
     fetchAndDisplayShows() {
-        console.log(getShowsByKey(this.selectedName).then(shows => this.renderCards(shows)));
+        getShowsByKey(this.selectedName).then(shows => this.renderCards(shows));
     }
 
     renderCards = shows => {
@@ -107,7 +107,8 @@ class TvApp {
         const h2 = createDOMElem('h2', '', show.name);
         const p = createDOMElem('p', '', show.summary);
         const ratings = createDOMElem('div', '', _displayRating(show.rating));
-        const closeBtn = createDOMElem('button', 'Show-Preview-Close-Btn', 'CLOSE', '');
+        const closeBtn = createDOMElem('button', 'Show-Preview-Close-Btn', '', '');
+        const closeIcon = createDOMElem('img', 'Show-Pewview-Close-Icon', '', 'src/close.png');
 
        
 
@@ -117,6 +118,8 @@ class TvApp {
 
         showModalContainer.appendChild(img);
         showModalContainer.appendChild(showPreviewDetails);
+
+        closeBtn.appendChild(closeIcon);
         showModalContainer.appendChild(closeBtn);
 
         closeBtn.addEventListener('click', this.closeModal);
