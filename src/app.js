@@ -32,7 +32,9 @@ class TvApp {
 
         this.viewElems.showSearchForm.addEventListener('submit', event => {
             event.preventDefault();
-            console.log('Form was submitted!');
+            this.selectedName = event.target[0].value;
+            this.addRecentSearch(event.target[0].value);
+            this.fetchAndDisplayShows();
         })
     }
 
@@ -125,6 +127,23 @@ class TvApp {
         closeBtn.addEventListener('click', this.closeModal);
 
         return showModalContainer;
+    }
+
+    addRecentSearch = searchName => {
+
+        const RECENT_SEARCHES_KEY = 'recentSearches';
+
+        let currentRecentSearches = JSON.parse(localStorage.getItem(RECENT_SEARCHES_KEY));
+        if (currentRecentSearches == null) {
+            localStorage.setItem(RECENT_SEARCHES_KEY, JSON.stringify([searchName]));
+        } else {
+            if (currentRecentSearches.length < 5) { 
+                localStorage.setItem(RECENT_SEARCHES_KEY, JSON.stringify([searchName, ...currentRecentSearches]));
+            } else {
+                currentRecentSearches.pop();
+                localStorage.setItem(RECENT_SEARCHES_KEY, JSON.stringify([searchName, ...currentRecentSearches]));
+            }
+        }
     }
 }
 
