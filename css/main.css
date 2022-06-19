@@ -26,7 +26,6 @@ button, input {
 
 .Container {
     max-width: 1180px;
-    height: 100%;
     margin:auto;
 }
 
@@ -213,4 +212,15 @@ form {
     margin: 0;
     font-size: 3em;
     text-transform: uppercase;   
+}
+
+footer {
+    background-color: black;
+}
+
+.Footer-Content {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    color: white;
 }
