@@ -20,6 +20,7 @@ class TvApp {
         const listOfShowNames = Array.from(
             document.querySelectorAll('[data-show-name]')
         ).map(elem => elem.dataset.showName);
+        console.log(document.querySelectorAll('[data-show-name]'))
         
         this.viewElems = mapListToDOMElements(listOfIds, 'id');
         this.showNameButtons = mapListToDOMElements(listOfShowNames, 'data-show-name');
@@ -34,8 +35,24 @@ class TvApp {
             event.preventDefault();
             this.selectedName = event.target[0].value;
             this.addRecentSearch(event.target[0].value);
+            this.viewElems.showSearchInput.blur();
             this.fetchAndDisplayShows();
-        })
+        });
+
+        this.viewElems.showSearchForm.addEventListener('focusin', event => {
+            event.preventDefault();
+            this.viewElems.searchBarRecents.style.display = 'flex';
+            const RECENT_SEARCHES_KEY = 'recentSearches';
+            const currentRecentSearches = JSON.parse(localStorage.getItem(RECENT_SEARCHES_KEY));
+            this.renderRecentSearches(currentRecentSearches);
+
+        });
+
+        this.viewElems.showSearchForm.addEventListener('focusout', event => {
+            event.preventDefault();
+            this.viewElems.searchBarRecents.style.display = 'none';
+            this.viewElems.searchBarRecents.innerHTML = '';
+        });
     }
 
     setCurrentNameFilter = event => {
@@ -84,6 +101,7 @@ class TvApp {
             this.viewElems.showPreviewModal.style.display = 'block';
             this.viewElems.mainContent.classList.add('Blurred-Main');
             this.viewElems.showPreviewModal.appendChild(this.createShowModal(show));
+
         })
     }
 
@@ -98,7 +116,7 @@ class TvApp {
         let _displayRating = rating => {
             let stars = '';
             for (let i = 0; i < Math.round(rating); i++) {
-                stars.append('⭐');
+                stars += '⭐';
             }
             return stars;
         }
@@ -108,7 +126,7 @@ class TvApp {
         const showPreviewDetails = createDOMElem('div', 'Show-Preview-Details');
         const h2 = createDOMElem('h2', '', show.name);
         const p = createDOMElem('p', '', show.summary);
-        const ratings = createDOMElem('div', '', _displayRating(show.rating));
+        const ratings = createDOMElem('div', '', _displayRating(show.rating.average));
         const closeBtn = createDOMElem('button', 'Show-Preview-Close-Btn', '', '');
         const closeIcon = createDOMElem('img', 'Show-Pewview-Close-Icon', '', 'src/close.png');
 
@@ -127,6 +145,23 @@ class TvApp {
         closeBtn.addEventListener('click', this.closeModal);
 
         return showModalContainer;
+    }
+
+    createRecentSearchesItem = recentSearchName => {
+        const recentSearchItem = createDOMElem('div', 'Search-Bar-Recents-Item','' , '');
+        const recentNameLabel = createDOMElem('button', '', recentSearchName, '');
+
+        recentSearchItem.dataset.showName = recentSearchName;
+
+        recentSearchItem.appendChild(recentNameLabel);
+
+        return recentSearchItem;
+    }
+
+    renderRecentSearches = currentRecentSearches => {
+        for (let item of currentRecentSearches) {
+            this.viewElems.searchBarRecents.appendChild(this.createRecentSearchesItem(item));
+        }
     }
 
     addRecentSearch = searchName => {

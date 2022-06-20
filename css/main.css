@@ -6,6 +6,8 @@ body {
 }
 
 body {
+    display: flex;
+    flex-direction: column;
     position: relative;
     font-family: 'Rubik', sans-serif;
 }
@@ -84,6 +86,7 @@ button, input {
 }
 
 form {
+    position: relative;
     display: flex;
     margin: auto;
 }
@@ -104,7 +107,47 @@ form {
 }
 
 .Search-Bar-Form-Btn:hover {
-    background: #31446d;
+    background-color: #31446d;
+}
+
+.Search-Bar-Recents {
+    position: absolute;
+    left: 0;
+    top: 100%;
+    display: none;
+    flex-direction: column;
+    border-top: 2px solid #d1d1d1;
+    min-width: 340px;
+    background: white;
+}
+
+
+.Search-Bar-Recents h3 {
+    margin: 20px 20px 0 20px;
+    color: #9b9797;
+    font-size: .75em;
+    font-weight: 400;
+}
+
+.Search-Bar-Recents-Item {
+    display: flex;
+    justify-content: space-between;
+    margin: 5px 20px;
+    border-bottom: 2px solid #d1d1d1;
+    color: black;
+}
+.Search-Bar-Recents-Item:last-child {
+    border-bottom: none;
+}
+
+.Search-Bar-Recents-Item button {
+    border: none;
+    padding: 10px 20px;
+    background: none;
+}
+
+.Search-Bar-Recents-Item button img {
+    height: 10px;
 }
 
 .Search-Bar-Keywords {
@@ -215,6 +258,7 @@ form {
 }
 
 footer {
+    margin-top: auto;
     background-color: black;
 }
 
