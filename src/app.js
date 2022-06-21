@@ -5,6 +5,7 @@ class TvApp {
     constructor() {
         this.viewElems = {};
         this.showNameButtons = {};
+        this.favs = {};
         this.selectedName = 'harry';
         this.initilizeApp();
     }
@@ -31,12 +32,23 @@ class TvApp {
             this.showNameButtons[showName].addEventListener('click', this.setCurrentNameFilter);
         });
 
+        document.addEventListener('click', event => {
+            if (event.target.matches('.Show-Preview-Close-Btn') || !event.target.closest('.Show-Preview')) {
+                this.closeModal();
+            }
+        })
+
         this.viewElems.showSearchForm.addEventListener('submit', event => {
             event.preventDefault();
             this.selectedName = event.target[0].value;
             this.viewElems.showSearchInput.blur();
             this.fetchAndDisplayShows();
         });
+
+        window.addEventListener('DOMContentLoaded', this.fetchLocalStorage);
+        window.addEventListener('beforeunload', this.saveLocalStorage);
+
+        console.log(this.favs)
     }
 
     setCurrentNameFilter = event => {
@@ -61,6 +73,7 @@ class TvApp {
     createShowCard = show => {
         const divCard = createDOMElem('div', 'Show-Card');
         const h2 = createDOMElem('h2', '', show.name);
+        const fav = createDOMElem('button', 'Show-Card-Add-Fav-Btn', '', '');
         let img;
 
         if (show.image) {
@@ -69,10 +82,13 @@ class TvApp {
             img = createDOMElem('img', '', '', 'https://via.placeholder.com/210x295');
         }
 
-         divCard.appendChild(img);
-         divCard.appendChild(h2);
+        divCard.appendChild(img);
+        divCard.appendChild(h2);
+        divCard.appendChild(fav);
 
         divCard.dataset.showId = show.id;
+        fav.dataset.showId = show.id;
+        fav.addEventListener('click', this.addToFavs);
         divCard.addEventListener('click', this.renderModal);
     
 
@@ -129,6 +145,22 @@ class TvApp {
         closeBtn.addEventListener('click', this.closeModal);
 
         return showModalContainer;
+    }
+
+    addToFavs = event => {
+        const favId = event.target.dataset.showId;
+        getShowById(favId).then(show => {
+            if (this.favs[favId] == null) this.favs[favId] = show;
+        });
+      
+    }
+
+    saveLocalStorage = () => {
+        localStorage.setItem('favs', JSON.stringify(this.favs));
+    }
+
+    fetchLocalStorage = () => {
+        this.favs = JSON.parse(localStorage.getItem('favs'));
     }
 
 }
