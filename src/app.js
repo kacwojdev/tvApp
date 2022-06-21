@@ -34,24 +34,8 @@ class TvApp {
         this.viewElems.showSearchForm.addEventListener('submit', event => {
             event.preventDefault();
             this.selectedName = event.target[0].value;
-            this.addRecentSearch(event.target[0].value);
             this.viewElems.showSearchInput.blur();
             this.fetchAndDisplayShows();
-        });
-
-        this.viewElems.showSearchForm.addEventListener('focusin', event => {
-            event.preventDefault();
-            this.viewElems.searchBarRecents.style.display = 'flex';
-            const RECENT_SEARCHES_KEY = 'recentSearches';
-            const currentRecentSearches = JSON.parse(localStorage.getItem(RECENT_SEARCHES_KEY));
-            this.renderRecentSearches(currentRecentSearches);
-
-        });
-
-        this.viewElems.showSearchForm.addEventListener('focusout', event => {
-            event.preventDefault();
-            this.viewElems.searchBarRecents.style.display = 'none';
-            this.viewElems.searchBarRecents.innerHTML = '';
         });
     }
 
@@ -147,39 +131,6 @@ class TvApp {
         return showModalContainer;
     }
 
-    createRecentSearchesItem = recentSearchName => {
-        const recentSearchItem = createDOMElem('div', 'Search-Bar-Recents-Item','' , '');
-        const recentNameLabel = createDOMElem('button', '', recentSearchName, '');
-
-        recentSearchItem.dataset.showName = recentSearchName;
-
-        recentSearchItem.appendChild(recentNameLabel);
-
-        return recentSearchItem;
-    }
-
-    renderRecentSearches = currentRecentSearches => {
-        for (let item of currentRecentSearches) {
-            this.viewElems.searchBarRecents.appendChild(this.createRecentSearchesItem(item));
-        }
-    }
-
-    addRecentSearch = searchName => {
-
-        const RECENT_SEARCHES_KEY = 'recentSearches';
-
-        let currentRecentSearches = JSON.parse(localStorage.getItem(RECENT_SEARCHES_KEY));
-        if (currentRecentSearches == null) {
-            localStorage.setItem(RECENT_SEARCHES_KEY, JSON.stringify([searchName]));
-        } else {
-            if (currentRecentSearches.length < 5) { 
-                localStorage.setItem(RECENT_SEARCHES_KEY, JSON.stringify([searchName, ...currentRecentSearches]));
-            } else {
-                currentRecentSearches.pop();
-                localStorage.setItem(RECENT_SEARCHES_KEY, JSON.stringify([searchName, ...currentRecentSearches]));
-            }
-        }
-    }
 }
 
 document.addEventListener('DOMContentLoaded', new TvApp());
